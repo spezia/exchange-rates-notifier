@@ -1,7 +1,7 @@
 import requests
 from config import API
 
-def fetch_rates(currencies):
+def fetch_rates(currencies: list[str]):
     api_key = API['key']
     url = API['url']
     headers = {"accept": "application/json"}
@@ -14,7 +14,7 @@ def fetch_rates(currencies):
 
     return response.json()
 
-def by_currency(symbol):
+def by_currency(symbol: str):
     symbol = symbol.upper()
     currencies = API['currencies']
     if symbol not in currencies:

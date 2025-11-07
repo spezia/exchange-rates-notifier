@@ -10,7 +10,7 @@ sender      = SMTP["sender"]
 password    = SMTP["password"]
 receiver    = SMTP["receiver"]
 
-def get_body(currencies, formatted_date):
+def get_body(currencies: dict, formatted_date: str):
     template_path = os.path.join(BASE_DIR, "templates", "email_template.html")
     with open(template_path) as f:
         template = f.read()
@@ -35,7 +35,7 @@ def get_body(currencies, formatted_date):
     template = template.replace("{{ date }}", formatted_date)
     return template
 
-def send(currencies, formatted_date):
+def send(currencies: dict, formatted_date: str):
     # connect to gmail server
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
