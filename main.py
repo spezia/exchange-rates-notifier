@@ -8,7 +8,7 @@ if config.BASE_DIR not in sys.path:
 import currency
 import mail
 
-def main():
+def main() -> None:
     currencies = currency.by_currency(config.def_currency)
     today = datetime.now()
 
