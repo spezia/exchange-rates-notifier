@@ -64,6 +64,23 @@ python main.py
 
 Upon successful execution, you should receive an email with the exchange rate table.
 
+### 5. Run the Tests
+
+The tests use Python's built-in `unittest` module, so there is nothing extra to install.
+Run them from the project root:
+
+```bash
+python -m unittest discover
+```
+
+Add `-v` to see the name of every test:
+
+```bash
+python -m unittest discover -v
+```
+
+The exchange rates API is mocked, so the tests need no API key, no `.env` file and no internet connection.
+
 
 ---
 
