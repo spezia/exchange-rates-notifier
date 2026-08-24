@@ -79,9 +79,6 @@ Add `-v` to see the name of every test:
 python -m unittest discover -v
 ```
 
-The exchange rates API is mocked, so the tests need no API key, no `.env` file and no internet connection.
-
-
 ---
 
 ## License
