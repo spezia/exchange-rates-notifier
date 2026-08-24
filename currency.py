@@ -1,6 +1,9 @@
 import requests
 from config import API
 
+# Seconds to wait for the API before giving up
+TIMEOUT = 10
+
 def fetch_rates(currencies: list[str]) -> dict:
     api_key = API['key']
     url = API['url']
@@ -8,7 +11,8 @@ def fetch_rates(currencies: list[str]) -> dict:
 
     response = requests.get(
         f"{url}?app_id={api_key}&symbols={','.join(currencies)}&prettyprint=false&show_alternative=false",
-        headers=headers
+        headers=headers,
+        timeout=TIMEOUT
     )
     response.raise_for_status()
 

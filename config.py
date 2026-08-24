@@ -5,18 +5,25 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
+def require(name: str) -> str:
+    """Return an environment variable, or fail"""
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Missing required variable {name} in .env")
+    return value
+
 SMTP = {
-    "server": os.getenv("SMTP_SERVER"),
-    "port": int(os.getenv("SMTP_PORT")),
-    "sender": os.getenv("EMAIL_SENDER"),
-    "password": os.getenv("EMAIL_PASSWORD"),
-    "receiver": os.getenv("EMAIL_RECEIVER"),
+    "server": require("SMTP_SERVER"),
+    "port": int(require("SMTP_PORT")),
+    "sender": require("EMAIL_SENDER"),
+    "password": require("EMAIL_PASSWORD"),
+    "receiver": require("EMAIL_RECEIVER"),
 }
 
 API = {
-    "key": os.getenv("EXCHANGE_API_KEY"),
-    "url": os.getenv("EXCHANGE_URL"),
-    "currencies": os.getenv("LIST_CURRENCIES").split(","),
+    "key": require("EXCHANGE_API_KEY"),
+    "url": require("EXCHANGE_URL"),
+    "currencies": require("LIST_CURRENCIES").split(","),
 }
 
 def_currency = os.getenv("DEF_CURRENCY", "USD")
