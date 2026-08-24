@@ -4,12 +4,6 @@ import os
 from email.mime.text import MIMEText
 from config import SMTP, BASE_DIR
 
-port        = SMTP["port"]
-smtp_server = SMTP["server"]
-sender      = SMTP["sender"]
-password    = SMTP["password"]
-receiver    = SMTP["receiver"]
-
 def get_body(currencies: dict, formatted_date: str) -> str:
     template_path = os.path.join(BASE_DIR, "templates", "email_template.html")
     with open(template_path) as f:
@@ -19,7 +13,7 @@ def get_body(currencies: dict, formatted_date: str) -> str:
     for currency, rates in currencies.items():
         rows_html += f"""
             <tr style="background-color: #615e59; color: white; text-align: center;">
-                <td style="padding: 20px; border: 1px solid #615e59;" colspan="3"> {currency} </td>
+                <td style="padding: 20px; border: 1px solid #615e59;" colspan="2"> {currency} </td>
             </tr>
             """
         for rate_name, value in rates.items():
@@ -31,19 +25,19 @@ def get_body(currencies: dict, formatted_date: str) -> str:
             </tr>
             """
 
-    template = template.replace("{{ rows }}", rows_html)        
+    template = template.replace("{{ rows }}", rows_html)
     template = template.replace("{{ date }}", formatted_date)
     return template
 
 def send(currencies: dict, formatted_date: str) -> None:
     # connect to gmail server
     context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        server.login(sender, password)
+    with smtplib.SMTP_SSL(SMTP["server"], SMTP["port"], context=context) as server:
+        server.login(SMTP["sender"], SMTP["password"])
         msg = MIMEText(get_body(currencies, formatted_date), 'html')
         msg["Subject"] = f"Exchange Rates {formatted_date}"
-        msg["From"] = sender
-        msg["To"] = receiver
-        server.sendmail(sender, receiver, msg.as_string())
+        msg["From"] = SMTP["sender"]
+        msg["To"] = SMTP["receiver"]
+        server.sendmail(SMTP["sender"], SMTP["receiver"], msg.as_string())
         print("Email has been sent!")
 

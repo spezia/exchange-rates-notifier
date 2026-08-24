@@ -23,7 +23,7 @@ SMTP = {
 API = {
     "key": require("EXCHANGE_API_KEY"),
     "url": require("EXCHANGE_URL"),
-    "currencies": require("LIST_CURRENCIES").split(","),
+    "currencies": [c.strip().upper() for c in require("LIST_CURRENCIES").split(",")],
 }
 
 def_currency = os.getenv("DEF_CURRENCY", "USD")

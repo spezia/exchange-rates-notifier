@@ -1,12 +1,7 @@
 from datetime import datetime
 import smtplib
-import sys
-import config
 import requests
-
-if config.BASE_DIR not in sys.path:
-    sys.path.append(config.BASE_DIR)
-
+import config
 import currency
 import mail
 

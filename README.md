@@ -69,4 +69,4 @@ Upon successful execution, you should receive an email with the exchange rate ta
 
 ## License
 
-Crypto API Processor is released under the MIT License. See the [MIT](./LICENSE) file for details.
+Exchange Rates Notifier is released under the MIT License. See the [MIT](./LICENSE) file for details.
